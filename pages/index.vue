@@ -3,6 +3,7 @@
     <div>
       <logo/>
       <nuxt-link to="/users">Users</nuxt-link>
+      <button @click="onProductBtnClicked">To Products</button>
     </div>
   </section>
 </template>
@@ -13,6 +14,12 @@ import Logo from '~/components/Logo.vue'
 export default {
   components: {
     Logo
+  },
+
+  methods: {
+    onProductBtnClicked() {
+      this.$router.push('/products');
+    }
   }
 }
 </script>
