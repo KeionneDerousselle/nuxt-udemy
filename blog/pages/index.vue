@@ -12,13 +12,13 @@
       <PostPreview
        :id="'2'"
        :thumbnail="'https://static.interestingengineering.com/images/APRIL/sizes/code-google-app_resize_md.jpg'"
-       :title="'Hello There'"
-       :previewText="'This is my first post!'" />
+       :title="'Hello, Again'"
+       :previewText="'This is my second post!'" />
       <PostPreview
        :id="'3'"
        :thumbnail="'https://static.interestingengineering.com/images/APRIL/sizes/code-google-app_resize_md.jpg'"
-       :title="'Hello There'"
-       :previewText="'This is my first post!'" />
+       :title="'Hi!'"
+       :previewText="'This is my third post!'" />
     </section>
   </div>
 </template>
@@ -39,6 +39,7 @@ export default {
   position: relative;
   padding: 30px;
   box-sizing: border-box;
+  background-image: url('~assets/images/main-page-background.jpg');
   background-position: center;
   background-size: cover;
 }
