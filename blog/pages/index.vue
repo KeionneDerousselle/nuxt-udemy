@@ -8,38 +8,43 @@
 </template>
 
 <script>
-import PostList from '@/components/Posts/PostList'
+import PostList from "@/components/Posts/PostList";
 
 export default {
   components: {
     PostList
   },
 
-  data() {
-    return {
-      loadedPosts: [
-        {
-          id: '1',
-          title: 'First Post',
-          thumbnail: 'https://static.interestingengineering.com/images/APRIL/sizes/code-google-app_resize_md.jpg',
-          previewText: 'This is our first post!'
-        },
-        {
-          id: '2',
-          title: 'Second Post',
-          thumbnail: 'https://static.interestingengineering.com/images/APRIL/sizes/code-google-app_resize_md.jpg',
-          previewText: 'This is our second post!'
-        },
-        {
-          id: '3',
-          title: 'Third Post',
-          thumbnail: 'https://static.interestingengineering.com/images/APRIL/sizes/code-google-app_resize_md.jpg',
-          previewText: 'This is our third post!'
-        },
-      ]
-    }
+  asyncData(context, callback) {
+    setTimeout(() => {
+      callback(null, {
+       loadedPosts: [
+          {
+            id: "1",
+            title: "First Post",
+            thumbnail:
+              "https://static.interestingengineering.com/images/APRIL/sizes/code-google-app_resize_md.jpg",
+            previewText: "This is our first post!"
+          },
+          {
+            id: "2",
+            title: "Second Post",
+            thumbnail:
+              "https://static.interestingengineering.com/images/APRIL/sizes/code-google-app_resize_md.jpg",
+            previewText: "This is our second post!"
+          },
+          {
+            id: "3",
+            title: "Third Post",
+            thumbnail:
+              "https://static.interestingengineering.com/images/APRIL/sizes/code-google-app_resize_md.jpg",
+            previewText: "This is our third post!"
+          }
+        ]
+      })
+    }, 1500);
   }
-}
+};
 </script>
 
 <style scoped>
@@ -48,7 +53,7 @@ export default {
   position: relative;
   padding: 30px;
   box-sizing: border-box;
-  background-image: url('~assets/images/main-page-background.jpg');
+  background-image: url("~assets/images/main-page-background.jpg");
   background-position: center;
   background-size: cover;
 }
