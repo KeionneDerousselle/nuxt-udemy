@@ -1,18 +1,40 @@
 <template>
   <div class="single-post-page">
     <section class="post">
-      <h1 class="post-title">Title</h1>
+      <h1 class="post-title">{{ loadedPost.title }}</h1>
       <div class="post-details">
-        <div class="post-detail">Last updated on</div>
-        <div class="post-detail">Written by Name</div>
+        <div class="post-detail">Last updated on {{ loadedPost.updatedDate }}</div>
+        <div class="post-detail">Written by {{ loadedPost.author }}</div>
       </div>
-      <p class="post-content">Content of the post</p>
+      <p class="post-content">{{ loadedPost.content }}</p>
     </section>
     <section class="post-feedback">
       <p>Let me know what you think about the post, send a mail to <a href="mailto:feedback@my-awesome-domain.com">my awesome domain.</a></p>
     </section>
   </div>
 </template>
+
+<script>
+export default {
+  asyncData(context, callback) {
+    setTimeout(() => {
+      callback(null, {
+        loadedPost: {
+          id: "7",
+          title: `Sixth Post (ID: ${context.route.params.id})`,
+          thumbnail:
+            "https://static.interestingengineering.com/images/APRIL/sizes/code-google-app_resize_md.jpg",
+          previewText: "This is our sixth post!",
+          author: 'Keionne Derousselle',
+          updatedDate: new Date(),
+          content: 'Some dummy text that is definitely not the preview text'
+        }
+      });
+    }, 1000);
+  }
+};
+</script>
+
 
 <style scoped>
 .single-post-page {

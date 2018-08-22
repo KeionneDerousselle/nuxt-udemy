@@ -20,25 +20,25 @@ export default {
       callback(null, {
        loadedPosts: [
           {
-            id: "1",
-            title: "First Post",
+            id: "4",
+            title: "Fourth Post",
             thumbnail:
               "https://static.interestingengineering.com/images/APRIL/sizes/code-google-app_resize_md.jpg",
-            previewText: "This is our first post!"
+            previewText: "This is our fourth post!"
           },
           {
-            id: "2",
-            title: "Second Post",
+            id: "5",
+            title: "Fifth Post",
             thumbnail:
               "https://static.interestingengineering.com/images/APRIL/sizes/code-google-app_resize_md.jpg",
-            previewText: "This is our second post!"
+            previewText: "This is our fifth post!"
           },
           {
-            id: "3",
-            title: "Third Post",
+            id: "6",
+            title: "Sixth Post",
             thumbnail:
               "https://static.interestingengineering.com/images/APRIL/sizes/code-google-app_resize_md.jpg",
-            previewText: "This is our third post!"
+            previewText: "This is our sixth post!"
           }
         ]
       })
