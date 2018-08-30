@@ -15,7 +15,7 @@ const createStore = () => {
       },
       editPost(state, editedPost) {
         const postIndex = state.loadedPosts.findIndex(p => p.id === editedPost.id)
-        if(postIndex > -1){
+        if (postIndex > -1) {
           state.loadedPosts[postIndex] = editedPost
         }
       }
@@ -26,9 +26,9 @@ const createStore = () => {
           .get("https://nuxt-udemy-blog.firebaseio.com/posts.json")
           .then(response => {
             const loadedPosts = Object.keys(response.data).map(id => ({
-                id,
-                ...response.data[id]
-              }))
+              id,
+              ...response.data[id]
+            }))
 
             vuexContext.commit('setPosts', loadedPosts)
           })
@@ -41,21 +41,28 @@ const createStore = () => {
         vuexContext.commit('setPosts', posts)
       },
       addPost(vuexContext, post) {
-        const createdPost = { ...post, updatedDate: new Date() }
+        const createdPost = { ...post,
+          updatedDate: new Date()
+        }
 
         return axios
-        .post('https://nuxt-udemy-blog.firebaseio.com/posts.json', createdPost)
-        .then(response => {
-          vuexContext.commit('addPost', { ...createdPost, id: response.data.name })
-        })
-        .catch(error => console.error(error))
+          .post('https://nuxt-udemy-blog.firebaseio.com/posts.json', createdPost)
+          .then(response => {
+            vuexContext.commit('addPost', { ...createdPost,
+              id: response.data.name
+            })
+          })
+          .catch(error => console.error(error))
       },
       editPost(vuexContext, editedPost) {
-        vuexContext.commit('editPost', editedPost)
+        return axios
+          .put(`https://nuxt-udemy-blog.firebaseio.com/posts/${editedPost.id}.json`, editedPost)
+          .then(response => vuexContext.commit('editPost', editedPost))
+          .catch(e => console.error(e))
       }
     },
     getters: {
-      loadedPosts(state){
+      loadedPosts(state) {
         return state.loadedPosts
       }
     }

@@ -17,11 +17,6 @@ export default {
     AdminPostForm
   },
 
-  data(){
-    return {
-    }
-  },
-
   methods: {
     onSubmitted(postData) {
       this.$store
