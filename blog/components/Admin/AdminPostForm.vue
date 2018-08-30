@@ -55,7 +55,6 @@ export default {
 
   methods: {
     onSave() {
-      console.log(this.editedPost);
       this.$emit("submit", this.editedPost);
     },
 
@@ -65,6 +64,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-</style>
