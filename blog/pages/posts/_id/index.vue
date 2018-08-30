@@ -15,22 +15,17 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
-  asyncData(context, callback) {
-    setTimeout(() => {
-      callback(null, {
-        loadedPost: {
-          id: "7",
-          title: `Sixth Post (ID: ${context.route.params.id})`,
-          thumbnail:
-            "https://static.interestingengineering.com/images/APRIL/sizes/code-google-app_resize_md.jpg",
-          previewText: "This is our sixth post!",
-          author: 'Keionne Derousselle',
-          updatedDate: new Date(),
-          content: 'Some dummy text that is definitely not the preview text'
-        }
-      });
-    }, 1000);
+  asyncData(context) {
+    return axios
+      .get(`https://nuxt-udemy-blog.firebaseio.com/posts/${context.params.id}.json`)
+      .then(response => ({ loadedPost: response.data }))
+      .catch(error => {
+        console.error(error)
+        context.error(error)
+      })
   }
 };
 </script>
@@ -61,11 +56,17 @@ export default {
 .post-details {
   padding: 10px;
   box-sizing: border-box;
-  border-bottom: 3px solid #ccc;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+
+.post-content {
+  border-bottom: 3px solid #ccc;
+  border-top: 3px solid #ccc;
+  padding: 20px 0;
+  margin: 20px 0;
 }
 
 @media (min-width: 768px) {
