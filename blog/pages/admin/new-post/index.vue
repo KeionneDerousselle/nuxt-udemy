@@ -8,6 +8,7 @@
 
 <script>
 import AdminPostForm from '@/components/Admin/AdminPostForm'
+import axios from 'axios'
 
 export default {
   layout: 'admin',
@@ -23,7 +24,10 @@ export default {
 
   methods: {
     onSubmitted(postData) {
-
+      axios
+        .post('https://nuxt-udemy-blog.firebaseio.com/posts.json', postData)
+        .then(result => console.log(result))
+        .catch(error => console.error(error))
     }
   }
 }
