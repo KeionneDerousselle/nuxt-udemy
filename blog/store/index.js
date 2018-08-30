@@ -23,7 +23,7 @@ const createStore = () => {
     actions: {
       nuxtServerInit(vuexContext, context) {
         return axios
-          .get("https://nuxt-udemy-blog.firebaseio.com/posts.json")
+          .get(`${process.env.baseApiUrl}/posts.json`)
           .then(response => {
             const loadedPosts = Object.keys(response.data).map(id => ({
               id,
@@ -46,7 +46,7 @@ const createStore = () => {
         }
 
         return axios
-          .post('https://nuxt-udemy-blog.firebaseio.com/posts.json', createdPost)
+          .post(`${process.env.baseApiUrl}/posts.json`, createdPost)
           .then(response => {
             vuexContext.commit('addPost', { ...createdPost,
               id: response.data.name
@@ -56,7 +56,7 @@ const createStore = () => {
       },
       editPost(vuexContext, editedPost) {
         return axios
-          .put(`https://nuxt-udemy-blog.firebaseio.com/posts/${editedPost.id}.json`, editedPost)
+          .put(`${process.env.baseApiUrl}/posts/${editedPost.id}.json`, editedPost)
           .then(response => vuexContext.commit('editPost', editedPost))
           .catch(e => console.error(e))
       }

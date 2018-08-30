@@ -20,7 +20,7 @@ import axios from 'axios'
 export default {
   asyncData(context) {
     return axios
-      .get(`https://nuxt-udemy-blog.firebaseio.com/posts/${context.params.id}.json`)
+      .get(`${process.env.baseApiUrl}/posts/${context.params.id}.json`)
       .then(response => ({ loadedPost: response.data }))
       .catch(error => {
         console.error(error)

@@ -7,7 +7,7 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    title: pkg.name,
+    title: 'WD Blog',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -52,5 +52,8 @@ module.exports = {
     extend(config, ctx) {
 
     }
+  },
+  env: {
+    baseApiUrl: process.env.BASE_API_URL || 'https://nuxt-udemy-blog.firebaseio.com'
   }
 }

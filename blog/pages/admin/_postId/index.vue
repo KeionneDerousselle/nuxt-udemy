@@ -18,7 +18,7 @@ export default {
 
   asyncData(context) {
     return axios
-      .get(`https://nuxt-udemy-blog.firebaseio.com/posts/${context.params.postId}.json`)
+      .get(`${process.env.baseApiUrl}/posts/${context.params.postId}.json`)
       .then(response => ({ loadedPost: { ...response.data, id: context.params.postId } }))
       .catch(error => {
         console.error(error)
