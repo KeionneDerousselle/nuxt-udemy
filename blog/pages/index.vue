@@ -15,34 +15,10 @@ export default {
     PostList
   },
 
-  asyncData(context, callback) {
-    setTimeout(() => {
-      callback(null, {
-       loadedPosts: [
-          {
-            id: "4",
-            title: "Fourth Post",
-            thumbnail:
-              "https://static.interestingengineering.com/images/APRIL/sizes/code-google-app_resize_md.jpg",
-            previewText: "This is our fourth post!"
-          },
-          {
-            id: "5",
-            title: "Fifth Post",
-            thumbnail:
-              "https://static.interestingengineering.com/images/APRIL/sizes/code-google-app_resize_md.jpg",
-            previewText: "This is our fifth post!"
-          },
-          {
-            id: "6",
-            title: "Sixth Post",
-            thumbnail:
-              "https://static.interestingengineering.com/images/APRIL/sizes/code-google-app_resize_md.jpg",
-            previewText: "This is our sixth post!"
-          }
-        ]
-      })
-    }, 1500);
+  computed: {
+    loadedPosts() {
+      return this.$store.getters.loadedPosts
+    }
   }
 };
 </script>
