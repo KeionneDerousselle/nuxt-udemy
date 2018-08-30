@@ -28,6 +28,7 @@ module.exports = {
   ** Global CSS
   */
   css: [
+    '~assets/styles/main.css'
   ],
 
   /*
@@ -55,5 +56,9 @@ module.exports = {
   },
   env: {
     baseApiUrl: process.env.BASE_API_URL || 'https://nuxt-udemy-blog.firebaseio.com'
+  },
+  transition: {
+    name: 'fade',
+    mode: 'out-in'
   }
 }
