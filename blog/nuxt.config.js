@@ -43,7 +43,12 @@ module.exports = {
   ** Nuxt.js modules
   */
   modules: [
+    '@nuxtjs/axios'
   ],
+
+  axios: {
+    baseURL: process.env.BASE_API_URL || 'https://nuxt-udemy-blog.firebaseio.com'
+  },
 
   /*
   ** Build configuration
@@ -56,9 +61,7 @@ module.exports = {
 
     }
   },
-  env: {
-    baseApiUrl: process.env.BASE_API_URL || 'https://nuxt-udemy-blog.firebaseio.com'
-  },
+
   transition: {
     name: 'fade',
     mode: 'out-in'
