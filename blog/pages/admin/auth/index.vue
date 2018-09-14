@@ -1,15 +1,17 @@
 <template>
   <div class="admin-auth-page">
     <div class="auth-container">
-      <form>
-        <AppControlInput type="email">E-Mail Address</AppControlInput>
-        <AppControlInput type="password">Password</AppControlInput>
-        <AppButton type="submit">{{ isLogin ? 'Login' : 'Sign Up' }}</AppButton>
+      <form @submit.prevent="onSubmit">
+        <h1>{{ isLogin? 'Log In' : 'Sign Up'}}</h1>
+        <div class="auth-container--form">
+          <AppControlInput type="email" v-model="email">Email Address</AppControlInput>
+          <AppControlInput type="password" v-model="password">Password</AppControlInput>
+        </div>
         <AppButton
           type="button"
           btn-style="inverted"
-          style="margin-left: 10px"
-          @click="isLogin = !isLogin">Switch to {{ isLogin ? 'Signup' : 'Login' }}</AppButton>
+          @click="isLogin = !isLogin">Click here to {{ isLogin ? 'Signup' : 'Login' }}</AppButton>
+        <AppButton type="submit" style="margin-left: 10px; float: right;">Continue</AppButton>
       </form>
     </div>
   </div>
@@ -17,17 +19,44 @@
 
 <script>
 export default {
-  name: 'AdminAuthPage',
-  layout: 'admin',
+  name: "AdminAuthPage",
+  layout: "admin",
   data() {
     return {
-      isLogin: true
+      isLogin: true,
+      email: "",
+      password: ""
+    };
+  },
+  methods: {
+    onSubmit() {
+      const postAuthBody = {
+        email: this.email,
+        password: this.password,
+        returnSecureToken: true
+      };
+
+      const authUrl = this.isLogin
+        ? `https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=${
+            process.env.fbApiKey
+          }`
+        : `https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=${
+            process.env.fbApiKey
+          }`;
+
+      this.$axios
+        .$post(authUrl, postAuthBody)
+        .then(console.log)
+        .catch(console.error);
     }
   }
-}
+};
 </script>
 
 <style scoped>
+h1 {
+  text-align: center;
+}
 .admin-auth-page {
   padding: 20px;
 }
@@ -40,6 +69,10 @@ export default {
   margin: auto;
   padding: 10px;
   box-sizing: border-box;
+}
+
+.auth-container--form {
+  margin: 2rem 0;
 }
 </style>
 

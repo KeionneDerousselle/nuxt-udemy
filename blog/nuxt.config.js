@@ -2,7 +2,9 @@ const pkg = require('./package')
 
 module.exports = {
   mode: 'universal',
-
+  env: {
+    fbApiKey: 'AIzaSyCZlxfQg0I_2mhXeERHAXu3rJzk5lTjXJ4'
+  },
   /*
   ** Headers of the page
   */
@@ -67,7 +69,7 @@ module.exports = {
     mode: 'out-in'
   },
 
-  router: {
-    middleware: 'log'
-  }
+  // router: {
+  //   middleware: 'log'
+  // }
 }

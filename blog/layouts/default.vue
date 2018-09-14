@@ -13,7 +13,7 @@ import Header from '@/components/Navigation/Header'
 import SideNav from '@/components/Navigation/SideNav'
 
 export default {
-  middleware: 'log',
+  // middleware: 'log',
   components: {
     Header,
     SideNav
