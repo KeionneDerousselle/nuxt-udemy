@@ -30,24 +30,12 @@ export default {
   },
   methods: {
     onSubmit() {
-      const postAuthBody = {
+      this.$store.dispatch('authenticateUser', {
         email: this.email,
         password: this.password,
-        returnSecureToken: true
-      };
-
-      const authUrl = this.isLogin
-        ? `https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=${
-            process.env.fbApiKey
-          }`
-        : `https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=${
-            process.env.fbApiKey
-          }`;
-
-      this.$axios
-        .$post(authUrl, postAuthBody)
-        .then(console.log)
-        .catch(console.error);
+        isLogin: this.isLogin
+      })
+      .then(() => this.$router.push('/admin'))
     }
   }
 };
