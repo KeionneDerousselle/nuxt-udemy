@@ -25,6 +25,10 @@ const createStore = () => {
 
       setToken(state, token) {
         state.token = token
+      },
+
+      clearToken({ token }) {
+        token = null
       }
     },
     actions: {
@@ -84,8 +88,17 @@ const createStore = () => {
 
         return this.$axios
           .$post(authUrl, postAuthBody)
-          .then(result => vuexContext.commit('setToken', result.idToken))
+          .then(result => {
+            vuexContext.commit('setToken', result.idToken)
+            vuexContext.dispatch('setLogoutTimer', result.expiresIn * 1000)
+          })
           .catch(console.error);
+      },
+
+      setLogoutTimer(vuexContext, duration) {
+        setTimeout(() => {
+          vuexContext.commit('clearToken')
+        }, duration)
       }
     },
     getters: {
