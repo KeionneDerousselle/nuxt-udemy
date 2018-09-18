@@ -88,9 +88,14 @@ const createStore = () => {
 
         return this.$axios
           .$post(authUrl, postAuthBody)
-          .then(result => {
-            vuexContext.commit('setToken', result.idToken)
-            vuexContext.dispatch('setLogoutTimer', result.expiresIn * 1000)
+          .then(({ idToken, expiresIn }) => {
+            const expiresInMs = expiresIn * 1000
+
+            localStorage.setItem('token', idToken)
+            localStorage.setItem('tokenExpiration',new Date().getTime() + expiresInMs)
+
+            vuexContext.commit('setToken', idToken)
+            vuexContext.dispatch('setLogoutTimer', expiresInMs)
           })
           .catch(console.error);
       },
@@ -99,6 +104,17 @@ const createStore = () => {
         setTimeout(() => {
           vuexContext.commit('clearToken')
         }, duration)
+      },
+
+      initAuth(vuexContext) {
+        const token = localStorage.getItem('token')
+        const expiration = localStorage.getItem('tokenExpiration')
+        const today = new Date().getTime()
+
+        if(token && expiration && today < +expiration) {
+          vuexContext.commit('setToken', token)
+          vuexContext.dispatch('setLogoutTimer', +expiration - today)
+        }
       }
     },
     getters: {
