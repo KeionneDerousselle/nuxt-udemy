@@ -1,4 +1,5 @@
 import Vuex from 'vuex'
+import Cookie from 'js-cookie'
 
 const createStore = () => {
   return new Vuex.Store({
@@ -90,9 +91,13 @@ const createStore = () => {
           .$post(authUrl, postAuthBody)
           .then(({ idToken, expiresIn }) => {
             const expiresInMs = expiresIn * 1000
+            const expiration = new Date().getTime() + expiresInMs
 
             localStorage.setItem('token', idToken)
-            localStorage.setItem('tokenExpiration',new Date().getTime() + expiresInMs)
+            localStorage.setItem('tokenExpiration', expiration)
+
+            Cookie.set('jwt', idToken)
+            Cookie.set('expiration', expiration)
 
             vuexContext.commit('setToken', idToken)
             vuexContext.dispatch('setLogoutTimer', expiresInMs)
@@ -106,10 +111,18 @@ const createStore = () => {
         }, duration)
       },
 
-      initAuth(vuexContext) {
-        const token = localStorage.getItem('token')
-        const expiration = localStorage.getItem('tokenExpiration')
+      initAuth(vuexContext, request) {
         const today = new Date().getTime()
+        let token
+        let expiration
+
+        if(request) {
+          token = getCookieValue(request, 'jwt')
+          expiration = getCookieValue(request, 'expiration')
+        } else {
+          token = localStorage.getItem('token')
+          expiration = localStorage.getItem('tokenExpiration')
+        }
 
         if(token && expiration && today < +expiration) {
           vuexContext.commit('setToken', token)
@@ -127,6 +140,18 @@ const createStore = () => {
       }
     }
   })
+}
+
+const getCookieValue = (request, cookieName) => {
+  let cookieValue
+  if(request && request.headers && request.headers.cookie){
+    const cookie = request.headers.cookie.split(';').find(c => c.trim().startsWith(`${cookieName}=`))
+    if (cookie) {
+      cookieValue = cookie.split('=')[1]
+    }
+  }
+
+  return cookieValue
 }
 
 export default createStore
